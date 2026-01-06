@@ -20,42 +20,34 @@ import {
 import { City, Country, State } from "country-state-city";
 import Select from "react-select";
 
+import "./AddToCartProccess.css";
+
 const AddToCartProccess = ({ showModal, handleClose, product }) => {
   const { register, handleSubmit, setValue, trigger, reset } = useForm();
 
   const navigate = useNavigate();
-  // const {  clearCart } = useContext(CartContext);
 
   const [cartItems, setCartItems] = useState([]);
-
-  // const [isAdded, setIsAdded] = useState(false);
   const [quantity, setQuantity] = useState(0);
-  const [selectedWeight, setSelectedWeight] = useState("1kg");
-  const weightOptions = ["500gm", "1kg", "2kg"]; // Available sizes
 
   const uid = getItem("uid");
   const isAuthenticated = !!sessionStorage.getItem("token");
-  // const AddToCartPayload = JSON?.parse(sessionStorage.getItem(`cart_${uid}`)||{});
 
-  // States
   const [step, setStep] = useState(0);
   const [Paymode, setPaymode] = useState(false);
   const [mobView, setmobView] = useState(false);
   const [IsShowAddForm, setIsShowAddForm] = useState(false);
 
-  // Functions
   const handleTapSteps = async () => {
-    setStep(step + 1);
+    setStep((prev) => prev + 1);
     if (step >= 2) {
       return setPaymode(!Paymode);
     }
 
     const uid = sessionStorage.getItem("uid");
-
     const storedCart = JSON.parse(sessionStorage.getItem(`cart_${uid}`)) || {};
 
     if (Object.keys(storedCart).length === 0) {
-      // toast.warning("Your cart is empty!", { position: "top-right" });
       return;
     }
 
@@ -69,21 +61,6 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
         })),
       })),
     };
-    
-
-    // try {
-    //   const response = await postData("checkout", payload);
-
-    //   if (response.status === 200) {
-    //     toast.success("Order placed successfully!", { position: "top-right" });
-    //     clearCart(); // Clear cart after order
-    //   }
-    // } catch (error) {
-    //   toast.error("Failed to place order. Try again.", {
-    //     position: "top-right",
-    //   });
-    //   
-    // }
   };
 
   const fetchCartItems = () => {
@@ -105,34 +82,14 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
   };
 
   useEffect(() => {
-    fetchCartItems(); // Fetch on initial render
-
-    // 🔥 Listen for cart updates
+    fetchCartItems();
     window.addEventListener("cartUpdated", fetchCartItems);
-
     return () => {
       window.removeEventListener("cartUpdated", fetchCartItems);
     };
   }, [uid]);
 
-  // const updateQuantity = (productId, weight, newQuantity) => {
-  //   if (newQuantity < 1) {
-  //     // removeFromCart(productId, weight);
-  //     return;
-  //   }
-
-  //   const storedCart = JSON.parse(sessionStorage.getItem(`cart_${uid}`)) || {};
-  //   if (storedCart[productId] && storedCart[productId][weight]) {
-  //     storedCart[productId][weight].quantity = newQuantity;
-  //     sessionStorage.setItem(`cart_${uid}`, JSON.stringify(storedCart));
-  //     fetchCartItems(); // 🔄 Update UI immediately
-  //     window.dispatchEvent(new Event("cartUpdated")); // Notify all components
-  //   }
-  // };
-
   const increaseQuantity = async (i) => {
-    
-
     let updatedQuantity = i.product_quantity + 1;
 
     try {
@@ -145,25 +102,17 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
         product_weight: i.product_weight,
       };
 
-      const endpoint = "updateCart";
-      const response = await postData(endpoint, payload);
+      const response = await postData("updateCart", payload);
 
-      
       toast.success(`${i.product_name} updated in cart!`, {
         position: "top-right",
         autoClose: 2000,
       });
 
       setQuantity(updatedQuantity);
-
-      // setIsAdded(true);
-
       getProductAPI();
-
       window.dispatchEvent(new Event("cartUpdated"));
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   const decreaseQuantity = async (i) => {
@@ -179,9 +128,7 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
           product_quantity: updatedQuantity,
           product_weight: i.product_weight,
         };
-
         const response = await postData("updateCart", payload);
-        
 
         toast.info(`Decreased quantity of ${i.product_name}`, {
           position: "top-right",
@@ -190,34 +137,12 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
 
         setQuantity(updatedQuantity);
         window.dispatchEvent(new Event("cartUpdated"));
-      } catch (error) {
-        
-      }
+      } catch (error) {}
     } else {
-      // Remove product
-      // try {
-      //   const payload = {
-      //     uid,
-      //     product_id: product.id,
-      //     product_weight: selectedWeight,
-      //   };
-      //   const response = await deleteProductAPI("removecart", "", payload);
-      //   
-      //   toast.error(`Removed ${product.name} from cart!`, {
-      //     position: "top-right",
-      //     autoClose: 2000,
-      //   });
-      //   setQuantity(0);
-      //   setIsAdded(false);
-      //   window.dispatchEvent(new Event("cartUpdated"));
-      // } catch (error) {
-      //   
-      // }
     }
   };
 
   const handleDeleteProduct = async (i) => {
-    
     try {
       const payload = {
         uid: i?.uid,
@@ -225,11 +150,9 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
       };
 
       const response = await postData("removecart", payload);
-      
-      if (response?.message == "Product removed from cart") {
+
+      if (response?.message === "Product removed from cart") {
         getProductAPI();
-        // setGetProductResponse(response?.cartItems);
-        // removeItem(`cart_${uid}`);
         toast?.success(response?.message, {
           position: "top-right",
           autoClose: 3000,
@@ -245,42 +168,26 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
     } catch (error) {}
   };
 
-  
-
   const clearCart = () => {
     const uid = sessionStorage.getItem("uid");
     sessionStorage.removeItem(`cart_${uid}`);
-
-    fetchCartItems(); // 🔄 Update UI immediately
+    fetchCartItems();
     window.dispatchEvent(new Event("cartUpdated"));
   };
 
-  
   const totalPrice = cartItems?.reduce((total, product) => {
-    
-
-    console.log(
-      "total + Number(product?.productDetails?.price): ",
-      total + Number(product?.product_price)
+    return (
+      total +
+      Number(
+        product?.product_price *
+          product?.product_quantity *
+          product?.product_weight
+      )
     );
-    
-    return total + Number(product?.product_price * product?.product_quantity * product?.product_weight);
   }, 0);
 
-  // Add to Cart API
   const handleAddToCartApi = async () => {
     try {
-      // const payload = cartItems?.map((product) => ({
-      //   uid,
-      //   product_id: product?.id,
-      //   product_name: product?.productDetails?.name,
-      //   product_price: product?.productDetails?.price,
-      //   product_quantity: product?.quantity,
-      //   product_weight: product?.weight,
-      // }));
-
-      // const response = await postData("addtocart", payload);
-      // 
       setStep(1);
       if (step >= 2) {
         return setPaymode(!Paymode);
@@ -302,12 +209,9 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
         setCartCount(response?.cartItems?.length);
         setCartItems(response?.cartItems);
         setGetProductResponse(response?.cartItems);
-      } catch (error) {
-        
-      }
+      } catch (error) {}
     };
 
-    // Call on load + when custom event fires
     getProductAPI();
 
     const handleRefresh = () => {
@@ -324,45 +228,44 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
   const getAddressAPI = async () => {
     try {
       const response = await getData("getAllAddressRajlaxmi");
-
       setAllAdress(response?.addresses || []);
     } catch (error) {}
   };
-  
-
-  // =====================================
 
   const [isProduct, setIsProduct] = useState([]);
 
   const getUid = getItem("uid");
-  
 
   const getProductAPI = async () => {
     try {
       const response = await getData(`getAllCartById?uid=${getUid}`);
-
       setIsProduct(response?.cartItems || []);
       setCartItems(response?.cartItems || []);
       setCartCount(response?.cartItems?.length);
     } catch (error) {}
   };
-  
 
-  // ====================================================
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedState, setSelectedState] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const [selectedPin, setSelectedPin] = useState(null);
   const [pinOptions, setPinOptions] = useState();
-  const user_country = selectedCountry?.name;
-  const user_state = selectedState?.name;
-  const user_city = selectedCity?.name;
-  const user_pincode = selectedPin?.Pincode;
+
+  const RequiredStar = () => <span className="text-danger">*</span>;
+
+  const getAllCodesByCity = async (city) => {
+    const response = await axios.get(
+      `https://api.postalpincode.in/postoffice/${city}`
+    );
+
+    if (response?.data[0]?.Status === "Success")
+      setPinOptions(
+        response?.data[0]?.PostOffice ? response?.data[0]?.PostOffice : "na"
+      );
+  };
 
   const onSubmit = async (data) => {
-    // handleTapSteps()
     try {
-      
       const payload = {
         fullName: data?.fullName,
         email: data?.email,
@@ -393,17 +296,21 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
       if (response?.length <= 0) {
         setIsShowAddForm(true);
       }
-    } catch (error) {
-      
-    }
+    } catch (error) {}
+  };
+
+  const [setectedAddress, SetSetectedAddress] = useState(null);
+  const onSelectAddress = (a) => {
+    try {
+      SetSetectedAddress(a);
+      handleTapSteps();
+    } catch (error) {}
   };
 
   const handleAddressDelete = async (id) => {
-    
     try {
-      // deleteAddressByIdRajlaxmi/:id
       const response = await deleteData("deleteAddressByIdRajlaxmi", id);
-      
+
       if (response?.success) {
         await getAddressAPI();
         toast.success(`${response?.message}`, {
@@ -411,28 +318,14 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
           autoClose: 2000,
         });
       }
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
-  const [setectedAddress, SetSetectedAddress] = useState(null);
-  const onSelectAddress = (a) => {
-    try {
-      SetSetectedAddress(a);
-      handleTapSteps();
-    } catch (error) {
-      
-    }
-  };
-  
 
   const handleCheckOut = async () => {
     try {
       setShowLoader(true);
-      // 1. Prepare cart payload
-      const payload = cartItems?.map((product) => {
-        
 
+      const payload = cartItems?.map((product) => {
         return {
           uid,
           product_id: product?.product_id,
@@ -444,60 +337,35 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
           address_id: setectedAddress?.id,
         };
       });
-      
 
       const finalPayload = { payload, address: setectedAddress };
-      
 
-      // 2. Create Order
       const response = await postData("create-order", finalPayload);
-      
 
-      // if (!response || response.status !== 200 || !response.data.success) {
-      //   throw new Error("Order creation failed");
-      // }
-
-      
       if (response?.success) {
-        
-        const { razorpay_order_id, amount, currency, name, id } =
-          response.razorpayOrder; // safe destructure
+        const { amount, currency, name, id } = response.razorpayOrder;
 
-        console.log(
-          "response.data.razorpayOrder.notes.user_mobile_num: ",
-          response.razorpayOrder.notes.user_mobile_num
-        );
-        //  Razorpay Checkout Setup
         const options = {
-          key: "rzp_test_qcl3EzwXvpMnwS", // Replace with your Razorpay Key
-          amount, // in paise
+          key: "rzp_test_qcl3EzwXvpMnwS",
+          amount,
           currency,
           name: name || "Gauswarn",
           description: "Test Transaction",
-          // image: Rajlaxmi,
           order_id: id,
-
           prefill: {
             name: response?.razorpayOrder?.notes?.user_name,
             email: response?.razorpayOrder?.notes?.user_email,
             contact: response?.razorpayOrder?.notes?.user_mobile_num,
           },
-          notes: {
-            address: "Razorpay Corporate Office",
-          },
           theme: {
             color: "#3399cc",
           },
-
           modal: {
-            ondismiss: async function (d) {
+            ondismiss: async function () {
               setShowLoader(false);
             },
           },
-
           handler: async function (rzpResponse) {
-            
-
             try {
               const payload = {
                 rzpResponse,
@@ -505,9 +373,7 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
               };
 
               const validateRes = await postData("status", payload);
-
               const result = validateRes;
-              
 
               if (result.success) {
                 navigate("/payment-success");
@@ -516,7 +382,6 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                 navigate("/payment-failed");
               }
             } catch (error) {
-              
               navigate("/payment-failed");
             } finally {
               setShowLoader(false);
@@ -527,7 +392,6 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
         const rzp = new window.Razorpay(options);
         rzp.on("payment.failed", function (response) {
           alert(`Payment Failed: ${response.error.description}`);
-          
           setShowLoader(false);
         });
 
@@ -535,111 +399,14 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
       } else {
         throw Error("payment error");
       }
-
-      // await processPayment(razorpayOrder, response.data);
-
-      // await postShippingOrder(razorpayOrder, cart, data);
     } catch (error) {
-      
       setShowLoader(false);
     }
-  };
-
-  // Helper function to process payment via Razorpay
-  const processPayment = async (razorpayOrder, orderResponseData) => {
-    
-    
-  };
-
-  const handlePaymentSuccess = async (rzpResponse, orderData) => {
-    try {
-      setShowLoader(true);
-      const payload = { rzpResponse, ...orderData.razorpayOrder };
-      const validateRes = await postData(`status`, payload);
-
-      if (validateRes.data.success) {
-        navigate("/payment-success");
-        // setCart([]);
-        // reset();
-      } else {
-        navigate("/payment-failed");
-        // setCart([]);
-        // reset();
-      }
-    } catch (error) {
-      
-      navigate("/payment-failed");
-    } finally {
-      setShowLoader(false);
-    }
-  };
-
-  // const postShippingOrder = async (razorpayOrder, cartItems, userData) => {
-  //   try {
-  //     const shippingPayload = {
-  //       order_id: razorpayOrder.id,
-  //       order_date: new Date().toISOString().split("T")[0],
-  //       order_type: "ESSENTIALS",
-  //       consignee_name: userData?.user_name,
-  //       consignee_phone: Number(userData?.user_mobile_num),
-  //       consignee_alternate_phone: Number(userData?.user_mobile_num),
-  //       consignee_email: userData?.user_email,
-  //       consignee_address_line_one: userData?.user_house_number,
-  //       consignee_address_line_two: userData?.user_landmark,
-  //       consignee_pin_code: userData?.user_pincode,
-  //       consignee_city: userData?.user_city,
-  //       consignee_state: userData?.user_state,
-  //       product_detail: cartItems.map((item) => ({
-  //         name: item?.productDetails?.name || "Product",
-  //         sku_number: "22",
-  //         quantity: item?.product_quantity,
-  //         discount: "",
-  //         hsn: "#123",
-  //         unit_price: item?.productDetails?.price,
-  //         product_category: "Other",
-  //       })),
-  //       payment_type: "PREPAID",
-  //       // Other fields as needed...
-  //       weight: 200,
-  //       length: 10,
-  //       width: 20,
-  //       height: 15,
-  //     };
-
-  //     const shippingRes = await axios.post(
-  //       `${environment?.SHIPPING_API_URL}/app/api/v1/push-order`,
-  //       shippingPayload,
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           "private-key": "G0K1PQYBq3Xlph6y48gw",
-  //           "public-key": "LBYfQgGFRljv1A249H87",
-  //         },
-  //       }
-  //     );
-  //     sessionStorage.setItem("orderId", shippingRes?.data?.data?.order_id);
-  //     
-  //   } catch (error) {
-  //     
-  //   }
-  // };
-
-  const RequiredStar = () => <span className="text-danger">*</span>;
-
-  const getAllCodesByCity = async (city) => {
-    const response = await axios.get(
-      `https://api.postalpincode.in/postoffice/${city}`
-    );
-
-    if (response?.data[0]?.Status === "Success")
-      setPinOptions(
-        response?.data[0]?.PostOffice ? response?.data[0]?.PostOffice : "na"
-      );
   };
 
   return (
     <>
-      <div>
+      <div className="new-add-to-cart">
         {isProduct.length > 0 ? (
           <Modal
             show={showModal}
@@ -649,7 +416,7 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
           >
             <div className="modal-content AddToCartModal-modal bg-transparent">
               <div className="d-flex justify-content-center ">
-                <div className="background-color-add-modal rounded-top-4 me-4">
+                <div className="background-color-add-modal rounded-top-4 ">
                   <img
                     type="button"
                     onClick={() => handleClose()}
@@ -720,9 +487,8 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                       Paymode ? "" : "justify-content-evenly"
                     }`}
                   >
-                    {/* items Add */}
                     <div
-                      className={`col-4 AddToCartModal-modal-grid-1 pt-3 ${
+                      className={`col-12 col-lg-4 AddToCartModal-modal-grid-1 pt-3 ${
                         mobView ? "pay-mob-view" : ""
                       } `}
                     >
@@ -730,21 +496,17 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                         <span className="text-color-terracotta font-size-16 inter-font-family-500">
                           {isProduct.length} Products
                         </span>
-                        {/* <span onClick={clearCart} style={{ cursor: "pointer" }}>
-                          Clear all
-                        </span> */}
                       </div>
                       <hr />
 
                       <div className="row payment-process-card-height overflow-auto">
                         {isProduct?.map((i, index) => (
-                          <div className="d-flex col-md-6 col-lg-12 mx-md-1 mx-lg-0 px-0  align-items-center product-cards my-3">
-                            <div className=" p-0">
-                              <img
-                                // src={i.productDetails.image}
-                                className="rounded m-2"
-                                alt=""
-                              />
+                          <div
+                            key={index}
+                            className="d-flex col-md-6 col-lg-12 mx-md-1 mx-lg-0 px-0 align-items-center product-cards my-3"
+                          >
+                            <div className="p-0">
+                              <img className="rounded m-2" alt="" />
                             </div>
                             <div className="ms-2 product-cards-center p-0">
                               <div className="text-color-dark-grayish-blue inter-font-family-500 font-size-16 pt-1">
@@ -757,9 +519,9 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                                 ₹ {i.product_price}/Kg
                               </div>
                             </div>
-                            <div className=" product-cards-end p-0 background-color-gleeful d-flex justify-content-center align-items-center">
+                            <div className="product-cards-end p-0 background-color-gleeful d-flex justify-content-center align-items-center">
                               <div>
-                                <div className=" button-addtocard d-grid justify-content-center">
+                                <div className="button-addtocard d-grid justify-content-center">
                                   <div>
                                     <button
                                       className="background-color-terracotta font-size-24 inter-font-family-500 d-flex justify-content-around align-items-center"
@@ -785,15 +547,12 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                               </div>
                             </div>
                             <div
-                              className=" product-cards-end p-0 background-color-terracotta AddToCartModal-delete-button d-flex justify-content-center align-items-center"
+                              className="product-cards-end p-0 background-color-terracotta AddToCartModal-delete-button d-flex justify-content-center align-items-center"
                               style={{ cursor: "pointer" }}
                             >
                               <span
                                 className="text-white inter-font-family-600 font-size-16"
-                                onClick={
-                                  () => handleDeleteProduct(i)
-                                  // removeFromCart(i.product_id, i.product_weight)
-                                }
+                                onClick={() => handleDeleteProduct(i)}
                               >
                                 Delete
                               </span>
@@ -803,9 +562,7 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                       </div>
                       <div className="d-flex justify-content-between mt-5">
                         <Link to="/products">
-                          <button
-                            className={`addToCartModalButton font-size-16 px-5 inter-font-family-500 rounded`}
-                          >
+                          <button className="addToCartModalButton font-size-16 px-5 inter-font-family-500 rounded">
                             Add more item
                           </button>
                         </Link>
@@ -815,31 +572,18 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                             handleTapSteps();
                             handleAddToCartApi();
                           }}
-                          className={`addToCartModalButton font-size-16 px-5 inter-font-family-500 rounded`}
+                          className="addToCartModalButton font-size-16 px-5 inter-font-family-500 rounded"
                         >
                           Proceed
                         </button>
                       </div>
                     </div>
-                    {/* <hr
-                    className={` vertical-hr vertical-hr-tab ${
-                      Paymode ? "d-none" : ""
-                    }`}
-                  /> */}
-                    {/* Detail Form */}
+
                     <div
-                      className={`col-lg-4 AddToCartModal-modal-grid-2 pt-3 ${
+                      className={`col-12 col-lg-4 AddToCartModal-modal-grid-2 pt-3 ${
                         Paymode ? "payModeBlackScreenActive" : ""
                       } ${mobView ? "pay-mob-view" : ""}`}
                     >
-                      {/* {allAdress?.length > 0 && (
-                        <div className="">
-                          <span className="address-heading font-size-14 inter-font-family-500">
-                            Address Details
-                          </span>
-                          <hr />
-                        </div>
-                      )} */}
                       <div className="">
                         <span className="address-heading font-size-14 inter-font-family-500">
                           Address Details
@@ -851,6 +595,7 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                         <div className={`row ${step >= 1 ? "" : "d-none"}`}>
                           {allAdress?.map((a, i) => (
                             <div
+                              key={i}
                               onClick={() => {
                                 onSelectAddress(a);
                               }}
@@ -897,7 +642,7 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                                 onClick={() => {
                                   setIsShowAddForm(!IsShowAddForm);
                                 }}
-                                className={`addToCartModalButton font-size-16 px-4 inter-font-family-500 rounded`}
+                                className="addToCartModalButton font-size-16 px-4 inter-font-family-500 rounded"
                               >
                                 Add New Address
                               </button>
@@ -963,7 +708,7 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                                   {...register("houseNo", { required: true })}
                                 />
                               </div>
-                              <div className="col-lg-4  form-group pt-3">
+                              <div className="col-lg-4 form-group pt-3">
                                 <label
                                   className="font-size-12 inter-font-family-400"
                                   htmlFor="country"
@@ -984,8 +729,7 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                                     trigger("country");
                                   }}
                                   name="country"
-                                  // placeholder="COUNTRY"
-                                  className="country-input py-1 "
+                                  className="country-input py-1"
                                   menuPortalTarget={document.body}
                                   styles={{
                                     menuPortal: (base) => ({
@@ -1022,14 +766,13 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                                     trigger("state");
                                   }}
                                   name="state"
-                                  // placeholder="STATE"
                                   className="state-input py-1 w-100"
                                   menuPortalTarget={document.body}
                                   styles={{
                                     menuPortal: (base) => ({
                                       ...base,
                                       zIndex: 9999,
-                                    }), // Ensure dropdown shows above everything
+                                    }),
                                   }}
                                 />
                                 <input
@@ -1062,14 +805,13 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                                     trigger("city");
                                   }}
                                   name="city"
-                                  // placeholder="CITY"
                                   className="city-input py-1"
                                   menuPortalTarget={document.body}
                                   styles={{
                                     menuPortal: (base) => ({
                                       ...base,
                                       zIndex: 9999,
-                                    }), // Ensure dropdown shows above everything
+                                    }),
                                   }}
                                 />
                                 <input
@@ -1094,16 +836,15 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                                   value={selectedPin}
                                   onChange={(item) => {
                                     setSelectedPin(item);
-                                    setValue("pincode", item); // Update form state
+                                    setValue("pincode", item);
                                   }}
-                                  // placeholder="PIN"
                                   className="pin-input py-1"
                                   menuPortalTarget={document.body}
                                   styles={{
                                     menuPortal: (base) => ({
                                       ...base,
                                       zIndex: 9999,
-                                    }), // Ensure dropdown shows above everything
+                                    }),
                                   }}
                                 />
                               </div>
@@ -1128,7 +869,6 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                                     },
                                   })}
                                   onKeyPress={(e) => {
-                                    // Allow only digits
                                     if (!/[0-9]/.test(e.key)) {
                                       e.preventDefault();
                                     }
@@ -1158,24 +898,10 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                           Proceed with this address
                         </button>
                       </div>
-
-                      {/* <div className={`mt-5 ${step >= 1 ? "" : "d-none"}`}>
-                      <button
-                        type="submit"
-                        className={`addToCartModalButton font-size-16 px-5 inter-font-family-500 rounded`}
-                      >
-                        Proceed with this address
-                      </button>
-                    </div> */}
                     </div>
-                    {/* <hr
-                    className={`vertical-hr vertical-hr-tab ${
-                      Paymode ? "payModeBlackScreenLineActive" : ""
-                    }`}
-                  /> */}
-                    {/* payment details */}
+
                     <div
-                      className={`col-lg-4 payment-section AddToCartModal-modal-grid-1 pt-3 ${
+                      className={`col-12 col-lg-4 payment-section AddToCartModal-modal-grid-1 pt-3 ${
                         Paymode ? "payModeBlackScreenActive" : ""
                       } ${mobView ? "pay-mob-view" : ""}`}
                     >
@@ -1188,12 +914,19 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                       <div className={`${step >= 2 ? "" : "d-none"}`}>
                         <ul className="pay-process-bill-summary">
                           {cartItems?.map((i, index) => (
-                            <li className="d-flex justify-content-between py-2">
+                            <li
+                              key={index}
+                              className="d-flex justify-content-between py-2"
+                            >
                               <span className="login-text font-size-14 inter-font-family-500">
-                                {i?.product_name} 
+                                {i?.product_name}
                               </span>
                               <span className="font-size-16 inter-font-family-500">
-                                {i.product_price} x Qty {i.product_quantity} x {i.product_weight}kg = ₹ {i.product_price * i.product_quantity * i.product_weight}
+                                {i.product_price} x Qty {i.product_quantity} x{" "}
+                                {i.product_weight}kg = ₹{" "}
+                                {i.product_price *
+                                  i.product_quantity *
+                                  i.product_weight}
                               </span>
                             </li>
                           ))}
@@ -1213,22 +946,6 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                               {`${setectedAddress?.address} ${setectedAddress?.houseNo} ${setectedAddress?.pincode} ${setectedAddress?.country} ${setectedAddress?.state} ${setectedAddress?.city} ${setectedAddress?.contactNo}`}
                             </span>
                           </li>
-                          {/* <li className="d-flex justify-content-between  py-3">
-                          <span className="login-text font-size-14 inter-font-family-500 d-flex align-items-center">
-                            Coupon Code
-                          </span>
-                          <div className="background-color-add-modal apply-coupon p-2  rounded">
-                            <input
-                              className="coupon-input"
-                              type="text"
-                              name=""
-                              id=""
-                            />{" "}
-                            <button className=" background-color-terracotta text-white border-0 rounded py-1 font-size-12 inter-font-family-500 px-3">
-                              Apply
-                            </button>
-                          </div>
-                        </li> */}
                           <li className="d-flex justify-content-between py-2">
                             <span className="login-text font-size-14 inter-font-family-500">
                               Sub Total:
@@ -1247,7 +964,7 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                           </li>
                         </ul>
                         <hr />
-                        <div className=" d-flex justify-content-around align-item-center">
+                        <div className="d-flex justify-content-around align-item-center">
                           <span className="font-size-24 inter-font-family-500 d-flex justify-content-around align-items-center">
                             ₹ {totalPrice}
                           </span>
@@ -1260,13 +977,6 @@ const AddToCartProccess = ({ showModal, handleClose, product }) => {
                         </div>
                       </div>
                     </div>
-                    {/* <hr
-                    className={`vertical-hr-tab vertical-hr ${
-                      Paymode ? "" : "d-none"
-                    }`}
-                  /> */}
-                    {/* Paymode section */}
-                    
                   </div>
                 </div>
               </Modal.Body>

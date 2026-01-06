@@ -65,7 +65,7 @@ const RecommendNavSearchCard = ({ product }) => {
   const increaseQuantity = async (productId) => {
     if (!isAuthenticated) {
       navigate("/login");
-      toast.warning("⚠️ Please login to add items!", {
+      toast.warning("Please login to add items!", {
         position: "top-right",
         autoClose: 3000,
       });

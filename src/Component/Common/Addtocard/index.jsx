@@ -66,7 +66,7 @@ const AddtoCard = ({ product }) => {
   const increaseQuantity = async () => {
     if (!isAuthenticated) {
       navigate("/login");
-      toast.warning("⚠️ Please login to add items!", {
+      toast.warning("Please login to add items!", {
         position: "top-right",
         autoClose: 3000,
       });

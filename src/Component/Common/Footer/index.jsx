@@ -6,7 +6,7 @@ import { AiFillInstagram } from "react-icons/ai";
 import { IoLogoLinkedin } from "react-icons/io";
 
 // Images
-import Logo from "../../Assets/img/Logo/RAJLAXMI JAVIK PNG.png";
+import Logo from "../../Assets/img/Logo/RAJLAXMI-JAVIK-PNG.png";
 import Map from "../../Assets/img/ourProducts/map.svg";
 import Phone from "../../Assets/img/ourProducts/phone.svg";
 import Email from "../../Assets/img/ourProducts/EnvelopeSimple.svg";

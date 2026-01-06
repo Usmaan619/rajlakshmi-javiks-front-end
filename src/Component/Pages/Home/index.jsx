@@ -28,7 +28,6 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import Allproduct from "./allProduct";
 
 const Home = () => {
-
   useEffect(() => {
     const carousel = document.querySelector("#carouselExampleControls");
     if (carousel) {
@@ -40,46 +39,6 @@ const Home = () => {
   }, []);
   return (
     <React.Fragment>
-      {/* Start Hero */}
-      {/* <section>
-        <div className="home bg-custom-gradient padding-bottom-60">
-          <Navbar />
-
-          <div className="container-fluid">
-            <div className="row py-5 d-flex justify-content-center mx-lg-5 px-lg-3">
-              <div className="col-lg-3 col-md-3 col-3 px-0 home-col1">
-                <p className="home-para1 mb-0 josefin-sans-font-family-500">Organic Product</p>
-                <div className="img1">
-                  <img src={Home1} alt="Loading" />
-                </div>
-                <div className="img2">
-                  <img src={Home2} alt="Loading" />
-                </div>
-              </div>
-              <div className="col-lg-4 col-md-4 center-img px-0 col-4">
-                <div className="img3">
-                  <img src={Home3} alt="Loading" />
-                </div>
-              </div>
-              <div className="col-lg-4 px-0 col-4">
-                <div className="image45">
-                  <div className="img4">
-                    <img src={Home4} alt="Loading" />
-                  </div>
-                  <div className="img5">
-                    <img src={Home5} alt="Loading" />
-                  </div>
-                </div>
-                <div className="img6">
-                  <p className="home-para2 josefin-sans-font-family-500">100% Vegeterian</p>
-                  <img src={Home6} alt="Loading" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
       <div className="home">
         <Navbar />
         <div className="row">
@@ -154,7 +113,7 @@ const Home = () => {
 
       {/* End Hero */}
 
-      <Allproduct/>
+      <Allproduct />
 
       {/* Start About */}
       {/* <About img={AboutImg} /> */}
@@ -179,7 +138,7 @@ const Home = () => {
       {/* End Proudly certified */}
 
       {/* Start Footer  */}
-      <Footer/>
+      <Footer />
       {/* Start End */}
     </React.Fragment>
   );

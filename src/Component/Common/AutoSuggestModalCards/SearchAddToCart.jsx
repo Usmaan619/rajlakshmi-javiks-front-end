@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
 // Images
-import FillHeart from '../../Assets/img/slickimg/fillheart.svg'
+import FillHeart from "../../Assets/img/slickimg/fillheart.svg";
 // Icons
 import { MdCurrencyRupee } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa";
@@ -13,7 +13,11 @@ import { TiStarFullOutline } from "react-icons/ti";
 import { CartContext } from "../../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { deleteProductAPI, postData, updateData } from "../../../services/apiService";
+import {
+  deleteProductAPI,
+  postData,
+  updateData,
+} from "../../../services/apiService";
 
 const SearchAddToCart = ({ product }) => {
   const getSessionUID = () => {
@@ -31,8 +35,7 @@ const SearchAddToCart = ({ product }) => {
   const [isAdded, setIsAdded] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const [selectedWeight, setSelectedWeight] = useState("500gm");
-  const { AddToWishList ,WishListItems} = useContext(CartContext);
-
+  const { AddToWishList, WishListItems } = useContext(CartContext);
 
   const navigate = useNavigate();
 
@@ -66,7 +69,7 @@ const SearchAddToCart = ({ product }) => {
   const increaseQuantity = async (productId) => {
     if (!isAuthenticated) {
       navigate("/login");
-      toast.warning("⚠️ Please login to add items!", {
+      toast.warning("Please login to add items!", {
         position: "top-right",
         autoClose: 3000,
       });
@@ -253,11 +256,7 @@ const SearchAddToCart = ({ product }) => {
           uid,
           product_id: productId,
         };
-        const response = await deleteProductAPI(
-          "removecart",
-          '',
-          payload
-        );
+        const response = await deleteProductAPI("removecart", "", payload);
         console.log("response: ", response);
       } catch (error) {}
     }
@@ -273,7 +272,6 @@ const SearchAddToCart = ({ product }) => {
     // 🔥 Notify all components
     window.dispatchEvent(new Event("cartUpdated"));
   };
-
 
   //   Rating Change
   const renderStars = (rating) => {
@@ -302,13 +300,14 @@ const SearchAddToCart = ({ product }) => {
         <div className="d-flex justify-content-center pt-2">
           <div>
             {/* Icons (Heart & Share) */}
-            <div className="heart" onClick={()=>AddToWishList(product)}>
+            <div className="heart" onClick={() => AddToWishList(product)}>
               {!WishListItems.some(
-                (item) => Number(item?.product_id) ===  Number(product?.id)
-              ) ?
-                <FaRegHeart className="text-color-terracotta" />:
+                (item) => Number(item?.product_id) === Number(product?.id)
+              ) ? (
+                <FaRegHeart className="text-color-terracotta" />
+              ) : (
                 <img src={FillHeart} alt="" />
-              }
+              )}
             </div>
             <div className="share">
               <PiShareFatBold className="text-color-terracotta" />
@@ -338,7 +337,10 @@ const SearchAddToCart = ({ product }) => {
           <div className="shop-by-category-heading-mob inter-font-family-500 card-heading font-size-16 pt-2 text-color-dark-grayish-blue">
             {product.name}
           </div>
-          <div className="w-50 d-flex justify-content-center rating-height" style={{height:"59px"}}>
+          <div
+            className="w-50 d-flex justify-content-center rating-height"
+            style={{ height: "59px" }}
+          >
             <div>
               <div className="pt-1">
                 <span className="start-gleeful">
@@ -371,7 +373,7 @@ const SearchAddToCart = ({ product }) => {
                 onClick={() => {
                   setIsAdded(true);
                   setQuantity(1); // Set initial quantity to 1
-                  increaseQuantity(product.id)
+                  increaseQuantity(product.id);
                 }}
               >
                 Add
@@ -383,7 +385,7 @@ const SearchAddToCart = ({ product }) => {
                 <div>
                   <button
                     className="background-color-terracotta font-size-24 inter-font-family-500 d-flex justify-content-around align-items-center"
-                    onClick={()=>decreaseQuantity(product.id)}
+                    onClick={() => decreaseQuantity(product.id)}
                   >
                     -
                   </button>
@@ -394,7 +396,7 @@ const SearchAddToCart = ({ product }) => {
                 <div>
                   <button
                     className="background-color-terracotta font-size-24 inter-font-family-500 d-flex justify-content-around align-items-center"
-                    onClick={()=>increaseQuantity(product.id)}
+                    onClick={() => increaseQuantity(product.id)}
                   >
                     +
                   </button>
