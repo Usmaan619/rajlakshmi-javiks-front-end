@@ -60,7 +60,7 @@ const ContactUs = () => {
     <React.Fragment>
       <section>
         <div className="bg-custom-gradient-product">
-          <Navbar />
+           {/* //  {/* // <Navbar /> */}
           <div className=" padding-bottom-100 padding-top-100">
             <div className="padding-bottom-100 mb-5 mx-2">
               <div className="container contact-section Delivery-status-div">
@@ -208,7 +208,7 @@ const ContactUs = () => {
           </div>
         </div>
 
-        <Footer />
+        
       </section>
     </React.Fragment>
   );

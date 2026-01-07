@@ -11,7 +11,6 @@ const Faq = () => {
         <>
             <section>
                 <div className="bg-custom-gradient-product">
-                    <Navbar />
                     <div className="container pt-5 text-light-gray-color font-size-40 josefin-sans-font-family-500 ">
                         <span className="text-dark">FAQ's</span>
                     </div>
@@ -106,7 +105,7 @@ const Faq = () => {
                     </div>
                 </div>
 
-                <Footer />
+                
             </section>
         </>
     )

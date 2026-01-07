@@ -8,7 +8,6 @@ const Refund = () => {
   return (
     <section>
       <div className="bg-custom-gradient-product">
-        <Navbar />
         <div className="container pt-5 text-light-gray-color font-size-40 josefin-sans-font-family-500 ">
           <span className="text-dark">Refund And Cancellation Policy</span>
         </div>
@@ -121,7 +120,7 @@ const Refund = () => {
         </div>
       </div>
 
-      <Footer />
+      
     </section>
   );
 };

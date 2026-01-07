@@ -30,7 +30,6 @@ const About = ({ img }) => {
           </div>
         </div>
       </section> */}
-      <Navbar />
       <section className="background-color-gleeful-opacity d-flex justify-content-center align-items-center py-5">
         <div className="container pt-lg-4">
           <div className="row d-flex align-items-center">

@@ -26,7 +26,6 @@ const TrackOrder = () => {
         <>
             <section>
                 <div className="bg-custom-gradient-product pb-2">
-                    <Navbar />
 
 
                     <div className=' py-3 d-flex justify-content-center align-items-center'>
@@ -60,7 +59,7 @@ const TrackOrder = () => {
 
 
 
-                <Footer />
+                
             </section>
         </>
     )

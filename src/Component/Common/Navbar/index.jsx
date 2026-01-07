@@ -1,8 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import Logo from "../../Assets/img/Logo/RAJLAXMI-JAVIK-PNG.png";
-
 import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
@@ -134,17 +132,17 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* ================= MOBILE SIDEBAR ================= */}
+      {/* ================= MOBILE LEFT SIDEBAR ================= */}
       <div
         className={`mobile-sidebar ${isOpen ? "open" : ""}`}
         onClick={() => setIsOpen(false)}
       >
         <div className="sidebar-content" onClick={(e) => e.stopPropagation()}>
           <div className="sidebar-header">
-            <img src={Logo} alt="logo" className="sidebar-logo" />
             <button className="close-btn" onClick={() => setIsOpen(false)}>
               <RxCross2 size={26} />
             </button>
+            <img src={Logo} alt="logo" className="sidebar-logo" />
           </div>
 
           <ul className="sidebar-menu">
@@ -174,7 +172,11 @@ const Navbar = () => {
                 Logout
               </button>
             ) : (
-              <NavLink to="/login" onClick={() => setIsOpen(false)} className="w-100">
+              <NavLink
+                to="/login"
+                onClick={() => setIsOpen(false)}
+                className="w-100"
+              >
                 <button className="login-btn w-100">Login</button>
               </NavLink>
             )}

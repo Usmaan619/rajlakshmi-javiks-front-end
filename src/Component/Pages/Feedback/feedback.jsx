@@ -40,7 +40,6 @@ const Feedback = () => {
     <>
       <section>
         <div className="bg-custom-gradient-product">
-          <Navbar />
           <div className="container pt-5 text-light-gray-color font-size-14 inter-font-family-500">
             <span> Back</span>{" "}
             <img src={ArrowLight} className="mx-2" alt="Loading" />{" "}
@@ -153,7 +152,7 @@ const Feedback = () => {
           </div>
         </div>
 
-        <Footer />
+        
       </section>
     </>
   );

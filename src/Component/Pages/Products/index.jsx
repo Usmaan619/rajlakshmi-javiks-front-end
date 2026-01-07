@@ -140,7 +140,6 @@ const Products = () => {
     <React.Fragment>
       <section>
         <div className="bg-custom-gradient-product">
-          <Navbar />
           <div className="josefin-sans-font-family-500 heading-text font-size-32 text-color-dark-grayish-blue text-center pt-3">
             Pure & Natural Choices
           </div>
@@ -230,7 +229,7 @@ const Products = () => {
             ))}
           </div>
         </div>
-        <Footer />
+        
       </section>
     </React.Fragment>
   );

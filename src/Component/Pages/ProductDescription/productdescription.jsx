@@ -361,7 +361,6 @@ const ProductDescription = ({ product }) => {
   return (
     <>
       <div className="bg-custom-gradient-product productDescription-section">
-        <Navbar />
         <div className="container pt-5 text-light-gray-color font-size-14 inter-font-family-500">
           <span className=" inter-font-family-400"> Back</span>{" "}
           <img src={ArrowLight} className="mx-2" alt="Loading" />{" "}
@@ -593,7 +592,7 @@ const ProductDescription = ({ product }) => {
           </div>
         </div>
         {/*------------ Product detail End----------- */}
-        <Footer />
+        
       </section>
       <AddToCartProccess showModal={showModal} handleClose={handleClose} />
     </>

@@ -53,7 +53,6 @@ const WishList = () => {
     <React.Fragment>
       <section>
         <div className="bg-custom-gradient-product">
-          <Navbar />
         </div>
         <div className="background-color-light-grayish-yellow padding-bottom-60">
           <div className="container">
@@ -75,7 +74,7 @@ const WishList = () => {
           </div>
         </div>
 
-        <Footer />
+        
       </section>
     </React.Fragment>
   );

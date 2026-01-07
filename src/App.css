@@ -16,7 +16,7 @@ body {
   position: static;
 }
 
-.height-100vh{
+.height-100vh {
   height: 100vh !important;
 }
 
@@ -236,14 +236,12 @@ body {
 }
 
 .bg-custom-gradient {
-  background: linear-gradient(to bottom,
-      rgba(164, 190, 123, 1) 0%,
-      /* Top */
-      rgba(255, 255, 255, 1) 50%,
-      /* Middle */
-      rgba(255, 255, 255, 1) 100%
-      /* Bottom */
-    );
+  background: linear-gradient(
+    to bottom,
+    rgba(164, 190, 123, 1) 0%,
+    /* Top */ rgba(255, 255, 255, 1) 50%,
+    /* Middle */ rgba(255, 255, 255, 1) 100% /* Bottom */
+  );
   /* height: 100vh; */
 }
 
@@ -489,7 +487,6 @@ Forgot Password
   transition: border 0.3s;
 }
 
-
 .nav-text-active {
   font-weight: 600 !important;
   font-size: 16px !important;
@@ -574,19 +571,19 @@ Forgot Password
   background-repeat: no-repeat;
 }
 
-.header-carousel .carousel-control-prev{
+.header-carousel .carousel-control-prev {
   width: 7% !important;
 }
-.header-carousel .carousel-control-next{
+.header-carousel .carousel-control-next {
   width: 7% !important;
 }
-.header-carousel .carousel-control-prev-icon ,.carousel-control-next-icon{
-background-color: black;
-padding: 12px;
-border-radius: 50px;
-border: 7px solid black;
+.header-carousel .carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: black;
+  padding: 12px;
+  border-radius: 50px;
+  border: 7px solid black;
 }
-
 
 @media (max-width: 1024px) {
   .home {
@@ -607,7 +604,6 @@ border: 7px solid black;
     background-position: center;
     background-repeat: no-repeat;
   }
-  
 }
 
 @media (max-width: 768px) {
@@ -629,10 +625,7 @@ border: 7px solid black;
     background-position: center;
     background-repeat: no-repeat;
   }
-
-  
 }
-
 
 /* .home-col1 {
   position: relative;
@@ -792,15 +785,8 @@ border: 7px solid black;
 .allproduct-name {
   font-size: 18px;
   font-weight: 500;
-  color: #2F3E46;
+  color: #2f3e46;
 }
-
-
-
-
-
-
-
 
 /* 
  ========================== 
@@ -894,14 +880,13 @@ border: 7px solid black;
 .horizontal-line {
   width: 100%;
   height: 1px;
-  background: repeating-linear-gradient(to right,
-      rgba(161, 161, 161, 1),
-      rgba(161, 161, 161, 1) 10px,
-      /* Dash length */
-      transparent 10px,
-      transparent 20px
-      /* Gap size */
-    );
+  background: repeating-linear-gradient(
+    to right,
+    rgba(161, 161, 161, 1),
+    rgba(161, 161, 161, 1) 10px,
+    /* Dash length */ transparent 10px,
+    transparent 20px /* Gap size */
+  );
 }
 
 /* 
@@ -928,13 +913,13 @@ border: 7px solid black;
 }
 
 .whychoose-vector-2 {
-  right: -130px;
+  right: 0;
 }
 
 .footer-vector-2 {
   /* bottom: -0px !important; */
   overflow-x: hidden;
-  right: -50px !important;
+  right: 0px !important;
 }
 
 .chemical {
@@ -1046,7 +1031,7 @@ border: 7px solid black;
   z-index: 990;
 }
 
-.chooseus-icon{
+.chooseus-icon {
   width: 40px;
   height: 40px;
   color: #707070;
@@ -1100,7 +1085,7 @@ border: 7px solid black;
   font-weight: 500 !important;
   font-style: normal;
 }
-.country-input{
+.country-input {
   z-index: 999;
 }
 
@@ -1114,7 +1099,7 @@ border: 7px solid black;
   font-size: 20px;
 }
 
-.explore-link-tag{
+.explore-link-tag {
   width: fit-content;
 }
 
@@ -1126,9 +1111,12 @@ border: 7px solid black;
   height: 196px;
   aspect-ratio: 1.2;
   border-radius: 16px;
-  mask: radial-gradient(var(--r) at var(--r) calc(100% - 65px),
+  mask: radial-gradient(
+      var(--r) at var(--r) calc(100% - 65px),
       #0000 calc(100% - 1px),
-      #000) calc(-1 * var(--r));
+      #000
+    )
+    calc(-1 * var(--r));
 }
 
 .circle-section {
@@ -1164,7 +1152,11 @@ border: 7px solid black;
   width: 302px;
 }
 
-.explore-slider a.carousel-control-prev a.carousel-control-next .carousel-indicators .carousel-control-prev-icon {
+.explore-slider
+  a.carousel-control-prev
+  a.carousel-control-next
+  .carousel-indicators
+  .carousel-control-prev-icon {
   display: none !important;
 }
 
@@ -1211,10 +1203,12 @@ border: 7px solid black;
  ==========================
 */
 .bg-custom-gradient-footer {
-  background: linear-gradient(to bottom,
-      rgba(254, 251, 233, 1) 0%,
-      rgba(254, 251, 233, 1) 0%,
-      rgba(164, 190, 123, 1) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(254, 251, 233, 1) 0%,
+    rgba(254, 251, 233, 1) 0%,
+    rgba(164, 190, 123, 1) 100%
+  );
   /* height: 100vh; */
 }
 
@@ -1254,10 +1248,12 @@ border: 7px solid black;
 */
 
 .bg-custom-gradient-product {
-  background: linear-gradient(to bottom,
-      rgba(164, 190, 123, 1) 0%,
-      rgba(254, 251, 233, 1) 50%,
-      rgba(254, 251, 233, 1) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(164, 190, 123, 1) 0%,
+    rgba(254, 251, 233, 1) 50%,
+    rgba(254, 251, 233, 1) 100%
+  );
 }
 
 .category-container {
@@ -1558,11 +1554,11 @@ border: 7px solid black;
   height: 40vh;
   /* border: 2px solid; */
 }
-.pay-process-bill-summary{
+.pay-process-bill-summary {
   height: 70px;
   overflow-y: scroll;
 }
-.overflow-x-class{
+.overflow-x-class {
   overflow-x: hidden !important;
 }
 
@@ -1608,7 +1604,7 @@ border: 7px solid black;
   color: white;
 }
 
-.css-1nmdiq5-menu{
+.css-1nmdiq5-menu {
   z-index: 9999 !important;
 }
 
@@ -1732,7 +1728,7 @@ border: 7px solid black;
   .footer-vector-2 {
     bottom: 0 !important;
     overflow-x: hidden;
-    right: -40px !important;
+    right: 0px !important;
   }
 
   .footer-vector-2 img {
@@ -1745,7 +1741,7 @@ border: 7px solid black;
   }
 
   .whychoose-vector-2 {
-    right: -45px !important;
+    right: 0px !important;
   }
 
   .whychoose-vector-2 img {
@@ -1786,7 +1782,7 @@ border: 7px solid black;
   .payment-process-card-height {
     height: 30vh;
   }
-  .feedback-inp-tag{
+  .feedback-inp-tag {
     width: 100% !important;
   }
 }
@@ -1883,7 +1879,7 @@ border: 7px solid black;
   .AddToCartModal-body {
     overflow-y: auto !important;
   }
-  .feedback-inp-tag{
+  .feedback-inp-tag {
     width: 75% !important;
   }
 }
@@ -2284,7 +2280,7 @@ border: 7px solid black;
     height: 200px !important;
   }
 
-  .track .feedback-input{
+  .track .feedback-input {
     width: 100% !important;
   }
 
@@ -2451,7 +2447,7 @@ border: 7px solid black;
   color: #2f3e46;
   font-weight: 400;
 }
-.feedback-inp-tag{
+.feedback-inp-tag {
   width: 25%;
 }
 
@@ -2888,11 +2884,10 @@ height: 40px; */
   .slider-fullsize-image-div {
     width: 475px;
     height: 427px;
-}
+  }
 }
 
 @media (max-width: 768px) {
-
   .btn-add-to-cart,
   .btn-buy-now,
   .pincode-input,
@@ -2941,9 +2936,12 @@ height: 40px; */
     width: 172px !important;
     height: 112px !important;
     --r: 7px;
-    mask: radial-gradient(var(--r) at var(--r) calc(100% - 45px),
+    mask: radial-gradient(
+        var(--r) at var(--r) calc(100% - 45px),
         #0000 calc(100% - 1px),
-        #000) calc(-1 * var(--r));
+        #000
+      )
+      calc(-1 * var(--r));
   }
 
   .redem-slider .redem-img {
@@ -3121,14 +3119,13 @@ height: 40px; */
   /* Make it responsive */
 }
 
-
 /* ============================
 
 Error Page Css
 
 ================================*/
 .error-btn {
-  background-color: #A4BE7B;
+  background-color: #a4be7b;
 }
 
 .error-page .vector {
@@ -3148,38 +3145,36 @@ Error Page Css
 }
 
 /* Tack Order Css */
-.track .feedback-input{
+.track .feedback-input {
   width: 400px;
 }
-.track p{
-  color: #2F3E46;
+.track p {
+  color: #2f3e46;
 }
-
 
 /* FAQ Css  */
-.accordion-item .faq-header{
+.accordion-item .faq-header {
   background-color: rgba(164, 190, 123, 0.2) !important;
-  color: #2F3E46 !important;
+  color: #2f3e46 !important;
 }
-.accordion-item .faq-body{
+.accordion-item .faq-body {
   background-color: rgba(164, 190, 123, 0.2) !important;
-  color: #2F3E46 !important;
+  color: #2f3e46 !important;
 }
 
-.accordion-button{
+.accordion-button {
   font-size: 24px !important;
   font-weight: 600 !important;
   background-color: rgba(164, 190, 123, 0.2) !important;
 }
 
 /* customer-review */
-.customer-review .prog{
+.customer-review .prog {
   height: 10px;
 }
-.customer-review .prog-bar{
+.customer-review .prog-bar {
   background-color: var(--gleeful) !important;
 }
-
 
 /* Payment Success */
 
@@ -3241,7 +3236,6 @@ Error Page Css
     box-shadow: inset 0px 0px 0px 30px #4bb71b;
   }
 }
-
 
 /* Payment Fail */
 .payment-fail {
@@ -3486,8 +3480,6 @@ Error Page Css
   background-position: center;
   background-size: contain;
 }
-
-
 
 /* Loader */
 
