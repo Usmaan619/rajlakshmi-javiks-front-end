@@ -61,17 +61,16 @@ export const deleteProductAPI = async (endpoint, id, data) => {
 
 // 🔹 GET: Fetch data for all wishlist
 const uid = getItem("uid");
+console.log("uid: ", uid);
 export const getWishListData = async () => {
   try {
-    const response = await axios.get(
-      `${API_BASE_URL}/getAllWishlist?uid=${uid}`,
-      {
-        headers: {
-          "ngrok-skip-browser-warning": "69420",
-        },
-      }
-    );
-    return response.data?.wishlist;
+    const response = await axios.get(`${API_BASE_URL}/getWishlist?uid=${uid}`, {
+      headers: {
+        "ngrok-skip-browser-warning": "69420",
+      },
+    });
+    console.log("response.data?.wishlist:---- ", response.data);
+    return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
   }

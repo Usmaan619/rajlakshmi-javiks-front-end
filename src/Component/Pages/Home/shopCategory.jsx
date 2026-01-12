@@ -1,5 +1,3 @@
-import React from "react";
-
 // Image
 
 import Images1 from "../../Assets/img/Shopcategory/Rectangle 55.png";
@@ -192,7 +190,9 @@ const ShopCategory = () => {
                       <Slider {...sliderSettings}>
                         {category.products.map((product, index) => (
                           <div key={index} className="col-lg-3 col-md-6 col-sm-12">
-                            <AddtoCard key={product.id} product={product} />
+                            {/* <AddtoCard key={product.id} product={product} /> */}
+                            <AddtoCard product={product} />
+
                           </div>
                         ))}
                       </Slider>
@@ -225,7 +225,9 @@ const ShopCategory = () => {
                    <Slider {...sliderSettings}>
                    {category.products.map((product, index) => (
                       <div key={index} className="col-lg-3 col-md-6 col-sm-12">
-                        <AddtoCard key={product.id} product={product} />
+                        <AddtoCard product={product} />
+
+                        {/* <AddtoCard key={product.id} product={product} /> */}
                       </div>
                     ))}
                    </Slider>
@@ -257,7 +259,9 @@ const ShopCategory = () => {
                    <Slider {...sliderSettings}>
                    {category.products.map((product, index) => (
                       <div key={index} className="col-lg-3 col-md-6 col-sm-12">
-                        <AddtoCard key={product.id} product={product} />
+                        {/* <AddtoCard key={product.id} product={product} /> */}
+                        <AddtoCard product={product} />
+
                       </div>
                     ))}
                    </Slider>

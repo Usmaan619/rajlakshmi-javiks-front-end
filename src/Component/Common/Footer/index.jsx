@@ -17,10 +17,8 @@ import { NavLink } from "react-router-dom";
 const Footer = () => {
   const navLinks = [
     { text: "Lab Report" },
-    { text: "FAQ's",
-      to: "/faq",
-     },
-     {
+    { text: "FAQ's", to: "/faq" },
+    {
       text: "About",
       to: "/about",
     },
@@ -28,7 +26,7 @@ const Footer = () => {
     {
       text: "Track Order",
       to: "/track",
-    }
+    },
   ];
 
   const categories = [
@@ -214,6 +212,19 @@ const Footer = () => {
 
           {/* Social Media Icons */}
           <Col xs={12} lg={6} md={6}>
+            {/* {socialIcons.map((item, index) => (
+              <a
+                href={item.link}
+                key={index}
+                className="mx-3 text-color-terracotta"
+              >
+                {item.icon}
+              </a>
+            ))} */}
+          </Col>
+
+          {/* Powered By */}
+          <Col xs={12} md={3}>
             {socialIcons.map((item, index) => (
               <a
                 href={item.link}
@@ -223,18 +234,6 @@ const Footer = () => {
                 {item.icon}
               </a>
             ))}
-          </Col>
-
-          {/* Powered By */}
-          <Col xs={12} md={3}>
-            <p className="mb-0">
-              <span className="inter-font-family-400 font-size-12 text-description">
-                Powered By
-              </span>
-              <div className="inter-font-family-500 font-size-14 text-description">
-                Intelligence Fusion Technologies
-              </div>
-            </p>
           </Col>
         </Row>
       </Container>

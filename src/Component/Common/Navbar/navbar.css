@@ -47,11 +47,11 @@
 }
 
 .nav-link:hover {
-  color: #198754;
+  /* color: #198754; */
 }
 
 .nav-link.active {
-  color: #198754;
+  /* color: #198754; */
 }
 
 .nav-link.active::after {
@@ -61,13 +61,13 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: #198754;
+  /* background: #198754; */
   border-radius: 2px;
 }
 
 /* ================= BUTTONS ================= */
 .login-btn {
-  background: #198754;
+  background: #e07a5f;
   color: #fff;
   border: none;
   padding: 8px 20px;
@@ -79,7 +79,7 @@
 }
 
 .login-btn:hover {
-  background: #157347;
+  background: #e07a5f;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
 }
@@ -104,10 +104,10 @@
 }
 
 .cart-btn:hover {
-  background: linear-gradient(135deg, #198754 0%, #157347 100%);
-  border-color: #198754;
+  background: linear-gradient(135deg, #e07a5f 0%, #e07a5f 100%);
+  border-color: #e07a5f;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
+  box-shadow: 0 4px 12px rgba(224, 122, 95, 0.3);
 }
 
 .cart-icon {
@@ -172,7 +172,7 @@
 }
 
 .navbar-toggler:hover {
-  color: #198754;
+  color: #e07a5f;
 }
 
 /* ================= MOBILE LEFT SIDEBAR ================= */
@@ -268,13 +268,13 @@
 
 .sidebar-link:hover {
   background: #f8f9fa;
-  color: #198754;
+  color: #e07a5f;
   padding-left: 20px;
 }
 
 .sidebar-link.active {
   background: #e7f5ec;
-  color: #198754;
+  color: #e07a5f;
   font-weight: 600;
 }
 

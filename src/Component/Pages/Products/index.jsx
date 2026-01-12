@@ -206,6 +206,7 @@ const Products = () => {
                     {category.products.map((product) => (
                       <div key={product.id} className="product-card">
                         <AddtoCard product={product} />
+                        
                       </div>
                     ))}
                   </Slider>

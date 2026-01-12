@@ -12,6 +12,7 @@ import linkedin from "../../Assets/img/Contact/icons8-linkedin.svg";
 import youtube from "../../Assets/img/Contact/icons8-youtube.svg";
 import inlarge from "../../Assets/img/Contact/inlarge.svg";
 import { postData } from "../../../services/apiService";
+import { toast } from "react-toastify";
 
 const ContactUs = () => {
   let uid = sessionStorage.getItem("uid");
@@ -44,15 +45,20 @@ const ContactUs = () => {
         message: formData?.message,
         title: formData?.message,
       };
+
       const response = await postData("contact", payload);
+
+      toast.success(response?.message || "Message sent successfully ");
+
       setFormData({
         name: "",
         email: "",
         phone: "",
         message: "",
-      })
+      });
     } catch (error) {
       console.log("error: ", error);
+      toast.error("Something went wrong  Please try again");
     }
   };
 
@@ -60,7 +66,6 @@ const ContactUs = () => {
     <React.Fragment>
       <section>
         <div className="bg-custom-gradient-product">
-           {/* //  {/* // <Navbar /> */}
           <div className=" padding-bottom-100 padding-top-100">
             <div className="padding-bottom-100 mb-5 mx-2">
               <div className="container contact-section Delivery-status-div">
@@ -207,8 +212,6 @@ const ContactUs = () => {
             </div>
           </div>
         </div>
-
-        
       </section>
     </React.Fragment>
   );

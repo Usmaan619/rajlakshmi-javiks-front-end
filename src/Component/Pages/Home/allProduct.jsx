@@ -1,5 +1,5 @@
 // CategorySection.jsx
-import React from "react";
+import React, { useMemo } from "react";
 import Image1 from "../../Assets/img/allProduct/allproduct1.png";
 import Image2 from "../../Assets/img/allProduct/allproduct2.png";
 import Image3 from "../../Assets/img/allProduct/allproduct3.png";
@@ -20,21 +20,28 @@ const categories = [
   { name: "Dry Fruits", image: Image8 },
 ];
 
+const CategoryItem = React.memo(({ category }) => (
+  <div className="allproduct-item">
+    <div className="allproduct-image">
+      <img src={category.image} alt={category.name} loading="lazy" />
+    </div>
+    <p className="allproduct-name mt-1 mb-0">{category.name}</p>
+  </div>
+));
+
 const Allproduct = () => {
+  const categoryElements = useMemo(() => 
+    categories.map((category, index) => (
+      <CategoryItem key={index} category={category} />
+    )), 
+  []);
+
   return (
     <div className="allproduct py-5">
-      {categories.map((category, index) => (
-        <div className="allproduct-item" key={index}>
-          <div className="allproduct-image">
-            <img src={category.image} alt="" />
-          </div>
-          <div>
-            <p className="allproduct-name mt-1 mb-0?">{category.name}</p>
-          </div>
-        </div>
-      ))}
+      {categoryElements}
     </div>
   );
 };
 
-export default Allproduct;
+CategoryItem.displayName = 'CategoryItem';
+export default React.memo(Allproduct);

@@ -147,7 +147,9 @@ const ProductInner = () => {
               {BestSellers.map((product, index) => (
                 <>
                   <div key={index} className="col-md-5 col-lg-3 col-sm-12  py-3">
-                    <AddtoCard key={product.id} product={product} />
+                    {/* <AddtoCard key={product.id} product={product} /> */}
+                    <AddtoCard product={product} />
+
                   </div>
                 </>
               ))}
